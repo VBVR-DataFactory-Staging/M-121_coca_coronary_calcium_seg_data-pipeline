@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Dataset generation entry point for M-037 (amos_multi_organ_segmentation).
+"""Dataset generation entry point for M-121 KneeXray (KL grading + knee bbox).
 
 Usage:
     python examples/generate.py
@@ -16,19 +16,20 @@ from src.pipeline import TaskPipeline, TaskConfig
 
 
 def main():
-    parser = argparse.ArgumentParser(description="Generate M-037 dataset")
+    parser = argparse.ArgumentParser(description="Generate M-121 KneeXray dataset")
     parser.add_argument("--num-samples", type=int, default=None)
     parser.add_argument("--output", type=str, default="data/questions")
     args = parser.parse_args()
 
-    print("Generating M-037 (amos_multi_organ_segmentation) dataset...")
+    print(f"Generating M-121 (kneexray_kl_grading) dataset — "
+          f"num_samples={args.num_samples}, output={args.output}")
     config = TaskConfig(
         num_samples=args.num_samples,
         output_dir=Path(args.output),
     )
     pipeline = TaskPipeline(config)
-    pipeline.run()
-    print("Done.")
+    samples = pipeline.run()
+    print(f"Done. Wrote {len(samples)} samples.")
 
 
 if __name__ == "__main__":
