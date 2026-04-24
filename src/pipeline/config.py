@@ -1,11 +1,11 @@
-"""Pipeline configuration for M-037 (amos_multi_organ_segmentation)."""
+"""Pipeline configuration for M-121 (flare22_progressive_organ_reveal)."""
 from pathlib import Path
 from pydantic import Field
 from core.pipeline import PipelineConfig
 
 
 class TaskConfig(PipelineConfig):
-    """Configuration for M-037 pipeline.
+    """Configuration for M-121 pipeline.
 
     Inherited from PipelineConfig:
         num_samples: Optional[int]  # Max samples (None = all)
@@ -14,15 +14,15 @@ class TaskConfig(PipelineConfig):
         split: str
     """
 
-    domain: str = Field(default="coca_coronary_calcium_seg")
+    domain: str = Field(default="flare22_progressive_organ_reveal")
 
     s3_bucket: str = Field(
         default="med-vr-datasets",
-        description="S3 bucket containing the raw M-037 data",
+        description="S3 bucket containing the raw FLARE22 data",
     )
     s3_prefix: str = Field(
-        default="M-121_COCA/raw/",
-        description="S3 key prefix for the dataset raw data",
+        default="_extracted/M-111_FLARE22/",
+        description="S3 key prefix for the dataset raw data (shared with M-111)",
     )
     fps: int = Field(
         default=3,
@@ -33,6 +33,10 @@ class TaskConfig(PipelineConfig):
         description="Local directory for downloaded raw data",
     )
     task_prompt: str = Field(
-        default="Cardiac CT - segment coronary artery calcium and chest.",
+        default=(
+            "Abdominal CT (FLARE22). Organs are revealed one-by-one in a "
+            "fixed anatomical sequence (large/central → small/peripheral). "
+            "Predict the next organ in the reveal sequence."
+        ),
         description="The task instruction shown to the reasoning model.",
     )

@@ -1,10 +1,10 @@
-"""Task pipeline for M-037.
+"""Task pipeline for M-121.
 
 This module is a thin wrapper that delegates all real work to the vendored
-phase2 logic in ``src/pipeline/_phase2/m037_amos.py``. The phase2 module
-generates the standard 7-file task layout into
-``datasets/_example_output/M-037_amos_multi_organ_segmentation/`` relative to the pipeline's
-``DATA_ROOT``.
+phase2 logic in ``src/pipeline/_phase2/m121_flare22_progressive.py``. The
+phase2 module generates the standard 7-file task layout into
+``datasets/_example_output/M-121_flare22_progressive_organ_reveal/`` relative
+to the pipeline's ``DATA_ROOT``.
 
 The :class:`TaskPipeline` class below exposes the standard Med-VR
 BasePipeline interface (download + process_sample + run) so it stays
@@ -24,7 +24,7 @@ if str(_PHASE2) not in sys.path:
     sys.path.insert(0, str(_PHASE2))
 
 import importlib
-_phase2_mod = importlib.import_module("m121_coca")
+_phase2_mod = importlib.import_module("m121_flare22_progressive")
 
 
 class TaskPipeline(BasePipeline):
